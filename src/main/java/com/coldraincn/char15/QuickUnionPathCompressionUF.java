@@ -1,5 +1,4 @@
 package com.coldraincn.char15;
-import static org.junit.Assume.assumeNoException;
 
 import com.coldraincn.libs.*;
 public class QuickUnionPathCompressionUF{
@@ -21,9 +20,25 @@ public class QuickUnionPathCompressionUF{
         return find(p)==find(q);
     }
     public int find(int p){
-        return 1;
+        int root=p;
+        while(root!=id[root]){
+            root=id[root];
+        }
+        while(p!=root){
+            int newp=id[p];
+            id[p]=root;
+            p=newp;
+        }
+        return root;
     }
     public void union(int p,int q){
+        int rootP=find(p);
+        int rootQ=find(q);
+        if(rootP==rootQ){
+            return;
+        }
+        id[rootP]=rootQ;
+        count--; 
 
     }
     public static void main(String[] args){
